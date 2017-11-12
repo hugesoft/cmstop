@@ -1,0 +1,29 @@
+{% extends "./base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}{% endblock %}
+
+navbar-dirbar{ height: 70px;opacity:0}
+
+{% block navbar %}
+
+{% include "./header.html"%}
+
+{% endblock %}
+
+{% block page_content %}
+
+<div class="main clr">
+ 
+<article class="show">
+ <li><a href="http://mhzrb.hz66.com/hzrb"><img src="/static/images/paper/p1.jpg"/></a></li>
+ <li><a href="http://mhzrb.hz66.com/hzwb"><img src="/static/images/paper/p2.jpg"/></a></li>
+ <li><a href="http://mhzrb.hz66.com/hzxqs/?type=2"><img src="/static/images/paper/p3.jpg"/></a></li>
+ <li><a href="http://mhzrb.hz66.com/hzxqs/?type=0"><img src="/static/images/paper/p4.jpg"/></a></li>
+ <li><a href="http://mhzrb.hz66.com/hzxqs/?type=1"><img src="/static/images/paper/p5.jpg"/></a></li>
+</article>
+
+    <footer></footer>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+
+<div class="wth" style="height:15">
+</div>
+
+{%if  imgs  %}
+<div class="slider">
+
+        <div class="slider-outer">
+           
+            <ul class="slider-wrap">
+            
+                {% for p in imgs %}
+                <li><a a href="/content/?contentid={{ p.contentid }}"><img src="http://upload.hz66.com/{{ p.thumb }}"/><span>{{ p.title }}</span><b></b></a></li>
+                {% endfor %}
+             
+            </ul>
+            
+        </div>
+
+<div class="slider-status"></div>
+{% endif %}
+
+    <script src="/static/js/zepto.js"></script>
+    <script src="/static/js/slider.nz.js"></script>
+
+<script type="text/javascript">
+var slider = lib.Slider;
+$('.slider').each(function(n,item){
+new slider(item,{
+    // margin : 5,
+    visible : 1,
+    trigger : '.slider-status',
+    hasTrigger : true,
+    play:true,
+    loop:true,
+    interval:10000,
+});
+});
+
+</script>

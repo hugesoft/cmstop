@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="/static/css/main.css">
+
+{% block navbar %}
+<!--<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="max-width:900px; width:900px; margin:0px auto;">-->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="http://www.hz66.com/">新闻网</a>
+        </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+          <li><a href="http://mhzrb.hz66.com/index/">电子报</a></li>
+          <li><a href="http://search.hz66.com/?clear=1">
+              <span class="glyphicon glyphicon-search" aria-hidden="true" role="button">搜索</span></a>
+          </li>
+      </ul>
+
+      <ul class = "nav navbar-nav navbar-right">
+          {% if current_user.is_authenticated %}
+          {% if current_user.role_id == 1 %}
+          <li><a href="/sys/login">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true">系统</span></a></li>
+          {% endif %}
+          <li><a href="{{ url_for('auth.user_edit') }}">
+              <span class="glyphicon glyphicon-user" aria-hidden="true">{{ current_user.username }}
+                 </span></a></li>
+          <li><a href="{{ url_for('auth.logout') }}">
+              <span class="glyphicon glyphicon-log-out" aria-hidden="true">注销</span></a></li>
+          {% else %}
+          <li><a href="{{ url_for('auth.auth_reg') }}">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true">注册</span></a></li>
+          <li><a href="{{ url_for('auth.login') }}">
+              <span class="glyphicon glyphicon-log-in" aria-hidden="true">登陆</span></a></li>
+          {% endif %}
+      </ul>
+    </div>
+    </div>
+</nav>
+{% endblock %}
+
+<div style="height:30px;margin-top:30px" >
+</div>

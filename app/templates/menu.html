@@ -1,0 +1,9 @@
+<nav id="navi">
+    <ul class="clr">
+        {% for p in tags %}
+        <li><a href= "/?catid={{ p.catid }}" >{{ p.name }}</a></li>
+        {% endfor %}
+        
+        <li><a href= "http://bbs.hz66.com/" >互动</a></li>
+    </ul>
+</nav>

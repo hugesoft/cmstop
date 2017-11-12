@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/static/css/main.css">
+<link href="/static/css/common.css" rel="stylesheet" type="text/css" />
+
+{% block navbar %}
+<header id="header" class="">
+    <title>{{ content.title }}</title>
+     <input class="h-more" id="shownavi" value="&equiv;" type="button"><span>
+         <a href="javascript:window.history.back()">返回</a></span><span class="catename">
+                {% for p in tags %}
+                    {% if content.catid == p.catid %}
+                    {{ p.name }}
+                    {% endif %}
+                {% endfor %}
+        </span><a href="/" class="h-logo"></a>
+    
+</header>
+
+{% include "menu2.html"%}
+
+{% endblock %}
+

@@ -1,0 +1,12 @@
+@charset "gb2312";
+/* CSS Document */
+
+/*导航*/
+.top{ clear:both;width:900px;height:46px; background-color:#033c67; line-height:46px;margin:0 auto}
+.indexlink{margin:0 10px 0 20px; font-size:14px; color:#fff;}
+.nav1{ padding:0 10px; color:#9ed0f1; font-size:14px;}
+.nav1:hover{ color:#fff;}
+.media{padding:0 5px; display:inline-block; width:40px;}
+
+
+.btm{height:104px; line-height:104px; text-align:center; font-size:14px; color:#999;  border-bottom:5px #033c67 solid; background:#fff;}

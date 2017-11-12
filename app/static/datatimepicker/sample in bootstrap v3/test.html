@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="/static/datatimepicker/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/datatimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+</head>
+
+<body>
+<div class="input-group date form_datetime col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd" data-link-field="dtp_input1">
+    <input class="form-control" id="dtp_input1" size="16" type="text" value="" readonly >
+
+    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+   <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+</div>
+                <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+<script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	$('.form_datetime').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+</script>
+<script type="text/javascript">
+$('.form_datetime')
+.datetimepicker()
+.on('changeDate', function(ev){
+    
+         window.location.href="http://mhzrb.hz66.com/zx/" 
+   
+});
+</script>
+
+</body>
+</html>
