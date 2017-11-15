@@ -8,5 +8,8 @@
 .nav1:hover{ color:#fff;}
 .media{padding:0 5px; display:inline-block; width:40px;}
 
+.weixin{ display:block;text-align:center; position:relative;}
+.weixin img{ display:none;}
+
 
 .btm{height:104px; line-height:104px; text-align:center; font-size:14px; color:#999;  border-bottom:5px #033c67 solid; background:#fff;}

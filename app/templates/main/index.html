@@ -8,6 +8,7 @@ navbar-dirbar{ height: 70px;opacity:0}
 {% block navbar %}
 
 {% include "./header.html"%}
+
 {% include "./imagelist.html"%}
 
 {% endblock %}
@@ -15,9 +16,9 @@ navbar-dirbar{ height: 70px;opacity:0}
 {% block page_content %}
 
 
+
 </div>    <div class="main clr">
-  
-    
+
     <div id="ajaxcon">
         
         
@@ -69,6 +70,8 @@ navbar-dirbar{ height: 70px;opacity:0}
 
                     var result='';
                     for(var i=0; i<json.length; i++){
+                        if(json[i].catid != 111 && json[i].catid != 112)
+                        {
                         if (json[i].thumb==''||json[i].thumb==null) {
                             if (json[i].allowcomment != 0 )
                             {
@@ -77,11 +80,13 @@ navbar-dirbar{ height: 70px;opacity:0}
                             else {
                                 result+='<article class="list-3 clr"><h2><a href="'+json[i].url+'" title="'+json[i].title+'">'+json[i].title+'</a></h2></article>';  
                             }
-                            }          
-                            else{
+                        }
+                        else{
                              result+='<article class="list-1 clr"><a href="'+'/content/?contentid='+json[i].contentid+'"><img src="http://upload.hz66.com/'+json[i].thumb+'"/></a><h2><a href="'+'/content/?contentid='+json[i].contentid+'" title="'+json[i].title+'">'+json[i].title/*+ gettime(json[i].published)*/ +'</a></h2></article>';
                         }
                     }
+                    } 
+                    
                     $('#ajaxcon').append(result);
                         counter++;
                         $('#loading').hide();

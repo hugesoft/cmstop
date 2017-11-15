@@ -78,14 +78,15 @@ def get_section(sectionid):
 	list_stream = list_stream.read()
 
 	python_to_json = json.loads(list_stream)
-	
-	return python_to_json
+
+
+	return python_to_json['data']
 
 #显示图片幻灯内容
 def get_img_json(id):
 	api_url = '?app=system&controller=content&action=ls'
 	
-	flag = 'catid=' + urllib.quote(id)+ '&size=6' +'&weight=' + '100'
+	flag = 'catid=' + urllib.quote(id)+ '&size=6' + '&weight=' + '100'
 	
 	sign = md5.new()
 	sign.update(flag + auth_secret)
@@ -119,6 +120,7 @@ def index():
 	catid = request.args.get('catid','27,28,29,30,31')
 	column = get_list_json(catid)
 
+	print column
 	return render_template('main/index.html', main_title=u'湖州在线手机版', tags = tags, \
 		column = column, catid = catid, imgs = imgs, type = type)
 
@@ -153,9 +155,6 @@ def list():
 	content = list_stream.read()
 
 	python_to_json = json.loads(content)
-
-	for pjson in python_to_json['data']:
-		print pjson
 
 	return content.decode('unicode_escape')
 
@@ -319,34 +318,25 @@ def getvideo():
 	return content.decode('unicode_escape')
 
 #显示内容页
-@main.route('/test/' , methods=['GET', 'POST'])
-def test():
-	'''
-	vaule = {}
-
-	api_url='?app=system&controller=content&action=ls'
-	
-	reload(sys)  
+@main.route('/get_ld/' , methods=['GET', 'POST'])
+def get_ld():
+	reload(sys)
 	sys.setdefaultencoding('utf-8')
 
-	catid = request.args.get('catid', '27')
-	size = request.args.get('size', '15')
+	#显示菜单
+	menuid = request.args.get('catid', '?catid=36')
+	type = request.args.get('type', '0')
+	tags = get_menu_json('100')
 
-	flag = 'catid=' + urllib.quote(catid) + '&size=' + urllib.quote(size)
-	print flag
+	#显示幻灯图
+	imgid = menuid
+	imgs = get_img_json('110')
 
-	sign = md5.new()
-	sign.update(flag + auth_secret)
+	#显示列表
+	catid = request.args.get('catid','36')
+	column = get_list_json(catid)
 
-	request_url = gateway + api_url + '&key=' +auth_key + '&sign=' + sign.hexdigest() + '&' + flag 
-	print request_url
-	
-	data = None
-	list_stream = urllib2.urlopen(request_url)
-	content = list_stream.read()
-	python_to_json = json.loads(content)
+	return render_template('main/index.html', main_title=u'湖州在线手机版', tags = tags, \
+		column = column, catid = catid, imgs = imgs, type = type)
 
-	return content.decode('unicode_escape')
-	'''
-	data = get_section(279)
-	return data
+
