@@ -203,6 +203,26 @@ nav ul li {
     text-shadow: 1px 1px #fff;
 }
 
+nav_ld {
+    background: #ffffff;
+}
+
+nav_ld ul {
+    padding: .3rem 0;
+}
+
+nav_ld ul li {
+    float: left;
+    _display: inline;
+    width: 20%;
+    text-align: center;
+    line-height: 2rem;
+    height: 2rem;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px #fff;
+}
+
+
 .wth {
     height: 30px;
     text-align: right;

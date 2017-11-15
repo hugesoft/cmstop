@@ -10,7 +10,11 @@
             <ul class="slider-wrap">
             
                 {% for p in imgs %}
+                {% if p.catid == '110' or p.catid == '111' or p.catid == '112' %}
+                <li><a a href="{{ p.url }}"><img src="http://upload.hz66.com/{{ p.thumb }}"/><span>{{ p.title }}</span><b></b></a></li>                
+                {% else %}
                 <li><a a href="/content/?contentid={{ p.contentid }}"><img src="http://upload.hz66.com/{{ p.thumb }}"/><span>{{ p.title }}</span><b></b></a></li>
+                {% endif %}
                 {% endfor %}
              
             </ul>
