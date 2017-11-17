@@ -13,7 +13,11 @@
                 {% if p.catid == '110' or p.catid == '111' or p.catid == '112' %}
                 <li><a a href="{{ p.url }}"><img src="http://upload.hz66.com/{{ p.thumb }}"/><span>{{ p.title }}</span><b></b></a></li>                
                 {% else %}
-                <li><a a href="/content/?contentid={{ p.contentid }}"><img src="http://upload.hz66.com/{{ p.thumb }}"/><span>{{ p.title }}</span><b></b></a></li>
+                {% if p.allowcomment == '0'  %}
+                <li><a href={{ p.url }}><img src="http://upload.hz66.com/{{ p.thumb }}"/><span>{{ p.title }}</span><b></b></a></li>
+                {% else %}
+                <li><a href="/content/?contentid={{ p.contentid }}"><img src="http://upload.hz66.com/{{ p.thumb }}"/><span>{{ p.title }}</span><b></b></a></li>                
+                {% endif %}
                 {% endif %}
                 {% endfor %}
              
