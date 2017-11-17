@@ -82,7 +82,14 @@ navbar-dirbar{ height: 70px;opacity:0}
                             }
                         }
                         else{
+                            if (json[i].allowcomment == 0 )
+                            {
+                                result+='<article class="list-1 clr"><a href="'+json[i].url+'"><img src="http://upload.hz66.com/'+json[i].thumb+'"/></a><h2><a href="'+json[i].url+'" title="'+json[i].title+'">'+json[i].title/*+ gettime(json[i].published)*/ +'</a></h2></article>';
+                                
+                            }
+                            else{
                              result+='<article class="list-1 clr"><a href="'+'/content/?contentid='+json[i].contentid+'"><img src="http://upload.hz66.com/'+json[i].thumb+'"/></a><h2><a href="'+'/content/?contentid='+json[i].contentid+'" title="'+json[i].title+'">'+json[i].title/*+ gettime(json[i].published)*/ +'</a></h2></article>';
+                            }
                         }
                     }
                     } 
