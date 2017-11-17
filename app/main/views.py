@@ -119,6 +119,7 @@ def index():
 	#显示列表
 	catid = request.args.get('catid','27,28,29,30,31')
 	column = get_list_json(catid)
+	
 
 	return render_template('main/index.html', main_title=u'湖州在线手机版', tags = tags, \
 		column = column, catid = catid, imgs = imgs, type = type)
