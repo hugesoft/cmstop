@@ -242,6 +242,57 @@ def content():
 
 
 #显示内容页
+@main.route('/sw_content/' , methods=['GET', 'POST'])
+def hzsw_content():
+	reload(sys)
+	sys.setdefaultencoding('utf-8')
+
+	#显示菜单
+	api_url = '?app=system&controller=category&action=ls'
+	catid = request.args.get('catid', '100')
+	
+	flag = 'catid=' + str(100)
+	
+	sign = md5.new()
+	sign.update(flag + auth_secret)
+
+	request_url = gateway + api_url + '&key=' +auth_key + '&sign=' + sign.hexdigest() + '&' + flag
+	tags = read_cmstop_json(request_url)
+
+	#内容
+	api_url = '?app=article&controller=article&action=get'
+	contentid = request.args.get('contentid', '1')
+
+	#flag = 'published=' + '2017-10-17' +'&size=' + str(1000)
+	flag = 'contentid=' + urllib.quote(contentid)
+
+	sign = md5.new()
+	sign.update(flag + auth_secret)
+
+	request_url = gateway + api_url + '&key=' +auth_key + '&sign=' + sign.hexdigest() + '&' + flag
+
+	content_stream = urllib2.urlopen(request_url)
+
+	content = content_stream.read()
+	content_data = json.loads(content)
+
+	data = content_data['data']
+		
+	if data != False:
+		#转换成localtime
+		curr_time = None
+		curr_time = int(data['published'])
+	
+		time_local = time.localtime(curr_time)
+		#转换成新的时间格式(2016-05-05 20:28:54)
+		dt = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
+
+		data['published'] = dt
+		#return content.decode('unicode_escape')
+	
+	return render_template('hzsw/content.html', main_title=u'湖州商务', tags = tags, content = data)
+
+#显示内容页
 @main.route('/content2/' , methods=['GET', 'POST'])
 def content2():
 	reload(sys)
@@ -339,4 +390,29 @@ def get_ld():
 	return render_template('main/index.html', main_title=u'湖州在线手机版', tags = tags, \
 		column = column, catid = catid, imgs = imgs, type = type)
 
+#湖州商务
+@main.route('/hzsw/', methods=['GET', 'POST'])
+def hzsw():
+	reload(sys)
+	sys.setdefaultencoding('utf-8')
 
+	#显示菜单
+	menuid = request.args.get('catid', '114')
+	type = request.args.get('type', '0')
+	tags = get_menu_json('114')
+
+	#显示幻灯图
+	imgid = menuid
+	imgs = get_img_json(imgid)
+	#显示列表
+	catid = request.args.get('catid','114')
+	column = get_list_json(catid)
+	
+	strtitle = u'湖州商务'
+	if catid == '114':
+		strtitle = u'商务政策解读'
+	elif catid == '115':
+		strtitle = u'商务动态信息'
+	
+	return render_template('hzsw/index.html', main_title = strtitle, tags = tags, \
+		column = column, catid = catid, imgs = imgs, type = type)

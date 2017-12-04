@@ -161,6 +161,16 @@ header .h-logo {
     background-repeat: no-repeat;
 }
 
+header .sw-logo {
+    display: block;
+    width: 300px;
+    height: 52px;
+    overflow: hidden;
+    background-image: url(/static/images/sw.png);
+    background-size: 250px 50px;
+    background-repeat: no-repeat;
+}
+
 header .h-more {
     display: block;
     float: right;

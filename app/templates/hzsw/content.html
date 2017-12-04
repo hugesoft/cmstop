@@ -1,0 +1,31 @@
+{% extends "./base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}{% endblock %}
+
+navbar-dirbar{ height: 70px;opacity:0}
+
+{% block navbar %}
+{% include "./header_sw.html"%}
+{% endblock %}
+
+{% block page_content %}
+
+<div class="main clr">
+ 
+    <article class="show">
+    <h2 style="color:{{ content.color }}">{{ content.title }}</h2>
+    <h4><time>
+        {{ content.published }}&nbsp;&nbsp;{{ content.source_name }}</time></h4>
+                
+        <p><p>
+         <strong>{{ content.tag }}</strong></p>
+        {{ content.content | safe }}  
+        
+        {% include "./foot.html"%}
+</article>
+
+    <footer></footer>
+</div>
+
+{% endblock %}

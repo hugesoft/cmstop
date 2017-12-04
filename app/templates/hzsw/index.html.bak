@@ -1,0 +1,154 @@
+{% extends "./base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}{% endblock %}
+
+navbar-dirbar{ height: 70px;opacity:0}
+
+{% block navbar %}
+
+{% include "./header.html"%}
+
+{% include "./imagelist.html"%}
+
+{% endblock %}
+
+{% block page_content %}
+
+
+
+</div>    <div class="main clr">
+
+    <div id="ajaxcon">
+        
+        
+    </div>
+    <p id="loading" style="text-align: center;">数据正在加载...</p>
+    <p id="overing">数据加载完毕...</p>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $(window).scroll(loadData);
+            $('#overing').hide();
+            getData();
+        });
+         
+        counter = 1;
+        function loadData()
+        {
+                if  (isUserAtBottom())
+                {
+                    getData();
+                }
+        }
+        function isUserAtBottom()
+        {
+            return ((($(document).height() - $(window).height()) - $(window).scrollTop()) <= 50) ? true : false;
+        }
+        // 随机数
+        function getRandom(n){
+        return Math.floor(Math.random()*n+1)
+        }
+        function getData()
+        {
+            $(window).unbind('scroll');
+            $('#loading').show();
+
+            $.ajax({
+                url: '/column/?catid={{ catid }}&size=5&page='+counter,
+                type: 'GET',
+                dataType: 'jsonp',
+                jsonp: 'callbackparam',             //服务端用于接收callback调用的function名的参数
+                jsonpCallback:'cmstop_callback',   //callback的function名称
+                success:function(json){
+
+                    if(json.length==0){
+                        $('#overing').show();
+                        $('#loading').hide();
+                        return;
+                    }
+
+                    var result='';
+                    for(var i=0; i<json.length; i++){
+                        if(json[i].catid != 111 && json[i].catid != 112)
+                        {
+                        if (json[i].thumb==''||json[i].thumb==null) {
+                            if (json[i].allowcomment != 0 )
+                            {
+                                result+='<article class="list-3 clr"><h2><a href="'+'/content/?contentid='+json[i].contentid+'" title="'+json[i].title+'">'+json[i].title+'</a></h2></article>';
+                            }  
+                            else {
+                                result+='<article class="list-3 clr"><h2><a href="'+json[i].url+'" title="'+json[i].title+'">'+json[i].title+'</a></h2></article>';  
+                            }
+                        }
+                        else{
+
+                            if (json[i].allowcomment == '0' || json[i].allowcomment == 0)
+                            {
+                                result+='<article class="list-1 clr"><a href="'+json[i].url+'"><img src="http://upload.hz66.com/'+json[i].thumb+'"/></a><h2><a href="'+json[i].url+'" title="'+json[i].title+'">'+json[i].title/*+ gettime(json[i].published)*/ +'</a></h2></article>';
+                                
+                            }
+                            else{
+                             result+='<article class="list-1 clr"><a href="'+'/content/?contentid='+json[i].contentid+'"><img src="http://upload.hz66.com/'+json[i].thumb+'"/></a><h2><a href="'+'/content/?contentid='+json[i].contentid+'" title="'+json[i].title+'">'+json[i].title/*+ gettime(json[i].published)*/ +'</a></h2></article>';
+                            }
+                        }
+                    }
+                    } 
+                    
+                    $('#ajaxcon').append(result);
+                        counter++;
+                        $('#loading').hide();
+                        $(window).scroll(loadData);
+                        $('.list-2 img').eq(0).css('margin-left','0px');
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown) {
+                /*
+                    alert(XMLHttpRequest.status);
+                    alert(XMLHttpRequest.readyState);
+                    alert(textStatus);
+                */
+                  }});                //跨域错误会执行到这里
+
+            
+        }
+
+    </script>
+
+    <footer></footer>
+</div>
+
+<script>
+        var time='1499655375';
+        var newtime=time*1000;//这里需要注意js时间戳精确到毫秒,所以要乘以1000后转换.
+         
+        //方法二(推荐):
+        function gettime(t){
+            var _time=new Date(t*1000);
+            var   year=_time.getFullYear();//2017
+            var   month=_time.getMonth()+1;//7
+            var   date=_time.getDate();//10
+            var   hour=_time.getHours();//10
+            var   minute=_time.getMinutes();//56
+            var   second=_time.getSeconds();//15
+            return   year+"年"+month+"月"+date+"日   "+hour+":"+minute;//+":"+second;//这里自己按自己需要的格式拼接
+        }
+        //alert(gettime(newtime));//输出2017年7月10日 10:56:15
+        </script>
+
+<script>
+    
+    var url=window.location.href;//获取当前的URL
+    url=url.replace(/[^a-z0-9]/gi,"");//用正则清除字符串中的所有非字母和数字的内容
+    if($.cookie(url)=="" || $.cookie(url)==null){
+           // alert("这是你第一次进入这个页面");
+           $('#tishi').show();
+           $.cookie(url,"y");
+    }
+</script>
+<div id="tishi"><span><div class="close" onclick="javascript:document.getElementById('tishi').style.display='none'"></div></span></div>
+
+
+{% endblock %}
+
+
+
